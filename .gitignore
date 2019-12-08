@@ -1,11 +1,25 @@
+## Dotfiles
+/*
+!/.*
+!/Library/Application Support/Code/User/settings.json
+/.emacs.d/*
+!/.emacs.d/init.el
+!/.emacs.d/custom-lib/lisp+.el
+
+## OS X
+.DS_Store
+# Thumbnails
+._*
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+## Elisp
 # Compiled
 *.elc
-
 # Packaging
 .cask
-
 # Backup files
 *~
-
 # Undo-tree save-files
 *.~undo-tree

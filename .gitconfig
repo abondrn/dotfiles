@@ -1,0 +1,17 @@
+[user]
+	name = Alex
+	email = abondarenko101@gmail.com
+[push]
+	default = simple
+[alias]
+	branches = branch -a
+	tags = tag
+	staged = ls-tree -r HEAD --name-only
+
+    untrack = rm --cached
+    unstage = reset HEAD --
+	uncommit = reset --mixed HEAD~
+	restore = reset --hard # discard changes to tracked files
+	revise = commit --amend --no-edit # recommit
+
+	comment = commit -m
