@@ -1,0 +1,18 @@
+[submodule "subrepos/bash-sensible"]
+	path = subrepos/bash-sensible
+	url = https://github.com/mrzool/bash-sensible.git
+[submodule "subrepos/git-extra-commands"]
+	path = subrepos/git-extra-commands
+	url = https://github.com/unixorn/git-extra-commands.git
+[submodule "subrepos/git-extras"]
+	path = subrepos/git-extras
+	url = https://github.com/tj/git-extras.git
+[submodule "subrepos/oh-my-git"]
+	path = subrepos/oh-my-git
+	url = https://github.com/arialdomartini/oh-my-git.git
+[submodule "subrepos/webpro.files"]
+	path = subrepos/webpro.files
+	url = https://github.com/webpro/dotfiles.git
+[submodule "subrepos/mathiasbynens.files"]
+	path = subrepos/mathiasbynens.files
+	url = https://github.com/mathiasbynens/dotfiles.git

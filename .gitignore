@@ -1,8 +1,8 @@
 # Ignore subdirectories
-**
+*/**
 
 # Allow files and directories
-!.**
+!.*
 !dotconfig
 !dotconfig/**
 !subrepos

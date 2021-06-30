@@ -5,11 +5,6 @@ if [ -e ../subrepos/bash-sensible/sensible.sh ]; then
 fi
 
 
-# Bash history search, partial + up-arrow
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
-
-
 # Traversing up nested directories
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -24,13 +19,13 @@ function cl() {
     fi;
     builtin cd "${DIR}" && \
     # use your preferred ls command
-        ls -F --color=auto
+        ls -F #--color=auto
 }
 
 
 # Add safety nets
 # do not delete / or prompt if deleting more than 3 files at a time #
-alias rm='rm -I --preserve-root'
+#alias rm='rm -I --preserve-root'
  
 # confirmation #
 alias mv='mv -i'
