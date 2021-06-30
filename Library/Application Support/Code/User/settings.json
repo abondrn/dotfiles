@@ -33,5 +33,36 @@
         "typescript",
         "typescriptreact"
     ],
-    "kite.showWelcomeNotificationOnStartup": false
+    "kite.showWelcomeNotificationOnStartup": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "diffEditor.renderSideBySide": true,
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "todo-tree.tree.showScanModeButton": false,
+    "files.associations": {
+        "*.fsh": "glsl"
+    },
+    "glsllint.additionalStageAssociations": {
+        "*.vsh": "vert",
+        "*.fsh": "frag",
+        "*.glsl": "task",
+    },
+    "glsllint.glslangValidatorPath": "/Users/alex/glslang/build/StandAlone/glslangValidator",
+    "glsllint.linkShader": false,
+    "glsllint.useIncludeDirOfFile": false,
+    "mcglsl.shaderpacksPath": "/Users/alex/Library/Application Support/minecraft/shaderpacks",
+    "mcglsl.glslangValidatorPath": "/Users/alex/Library/Application Support/minecraft/shaderpacks/glslangValidator",
+    "window.zoomLevel": -1,
+    "jscpd.minLines": 10,
+    "workbench.colorTheme": "Visual Studio 2019 Dark",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "editor.renderWhitespace": "all",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "python.linting.flake8Args": [
+        "--ignore=E101,W191"
+    ],
 }

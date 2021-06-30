@@ -15,3 +15,5 @@
 	revise = commit --amend --no-edit # recommit
 
 	comment = commit -m
+[pull]
+	rebase = false
