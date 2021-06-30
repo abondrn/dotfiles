@@ -1,0 +1,3 @@
+[submodule "subrepos/mac-cleanup"]
+	path = subrepos/mac-cleanup
+	url = https://github.com/fwartner/mac-cleanup/tree/main

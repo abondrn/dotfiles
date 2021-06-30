@@ -9,9 +9,9 @@
 !subrepos/**
 !/.*
 !/Library/Application Support/Code/User/settings.json
-/.emacs.d/*
 !/.emacs.d/init.el
 !/.emacs.d/custom-lib/lisp+.el
+!Makefile
 
 
 ## Ignore unnecessary files inside allowed directories
