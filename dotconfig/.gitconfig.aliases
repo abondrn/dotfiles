@@ -11,6 +11,7 @@
 #   git config --global include.path ~/.gitconfig.aliases
 #
 # Sources:
+# - https://git.wiki.kernel.org/index.php/Aliases
 # - https://haacked.com/archive/2019/02/14/including-git-aliases/
 
 [hub]
@@ -52,6 +53,17 @@
     # produces output that can be displayed using graphviz
     graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
 
+    # file-level workflow
+    untrack = rm --cached --
+    # undo the last commit
+    unstage = reset --soft HEAD^
+    # resets the previous commit, but keeps all the changes from that commit in the working directory
+	uncommit = reset --mixed HEAD~
+    # revert file to most recent commit
+	wipe = reset --hard
+    # discard changes to a file since last staged
+    discard = checkout --
+
     # workflow
     # https://stackoverflow.com/questions/3311774/how-to-convert-existing-non-empty-directory-into-a-git-working-directory-and-pus
     track = "!f() { git init && git remote add origin $1 && git pull origin master --allow-unrelated-histories && git push -u origin master; }; f"
@@ -59,18 +71,9 @@
     top = "!f() { cd `git rev-parse --show-toplevel` && git checkout master && git pull; }; f"
     # pulls changes from the remote. If I have any local commits, it’ll rebase them to come after the commits I pulled down. The --prune option removes remote-tracking branches that no longer exist on the remote.
     up = !git pull --rebase --prune $@ && git submodule update --init --recursive
-    untrack = rm --cached --
-    # undo the last commit
-    unstage = reset --soft HEAD^
-    # resets the previous commit, but keeps all the changes from that commit in the working directory
-	uncommit = reset --mixed HEAD~
-    # discard changes to tracked files
-	restore = reset --hard
     # roll into previous commit
 	revise = commit --amend --no-edit
-    abandon = branch -d
-    # discard changes to a file
-    discard = checkout --
+    abandon = branch -D
     pr = "!f(){ URL=$(git config remote.origin.url); open ${URL%.git}/compare/$(git rev-parse --abbrev-ref HEAD); }; f"
     # completing a PR
     default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
@@ -106,6 +109,6 @@
     # list all new commits after you fetched, with stats, but excluding merges
     fresh = log ORIG_HEAD.. --stat --no-merges
     # see what new commits have been created by the last command
-    new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+    committed = !sh -c 'git log $1@{1}..$1@{0} "$@"'
     # lists the files with the most churn
     churn = !git --no-pager log --name-only --oneline | grep -v ' ' | sort | uniq -c | sort -nr | head
