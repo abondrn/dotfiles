@@ -1,0 +1,111 @@
+
+#
+# Include this in your own .gitconfig by using the
+# [include] directive with the path to this file
+#
+# [include]
+#    path = ~/.gitconfig.aliases
+#
+# If you don't have any existing includes, you can add this via the following command
+# 
+#   git config --global include.path ~/.gitconfig.aliases
+#
+# Sources:
+# - https://haacked.com/archive/2019/02/14/including-git-aliases/
+
+[hub]
+        protocol = https
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+[core]
+        editor = code --wait
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[diff]
+    tool = vscode
+[difftool]
+        prompt = false
+[difftool "vscode"]
+    cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
+[help]
+    # the length of the delay is defined by the value of help.autocorrect which accepts integer values that represent a tenth of a second
+    autocorrect = 20
+[push]
+        # See `git help config` (search for push.default)
+        # for more information on different options of the below setting.
+        #
+        # Setting to git 2.0 default to suppress warning message
+        default = simple
+[credential]
+	helper = osxkeychain
+[alias]
+    aliases = "!git config -l | grep ^alias\\. | cut -c 7-"
+    find = "!git ls-files | grep -i"
+    set-origin = remote set-url origin
+    set-upstream = remote set-url upstream
+    lasttag = describe --tags --abbrev=0
+    # produces output that can be displayed using graphviz
+    graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+
+    # workflow
+    # https://stackoverflow.com/questions/3311774/how-to-convert-existing-non-empty-directory-into-a-git-working-directory-and-pus
+    track = "!f() { git init && git remote add origin $1 && git pull origin master --allow-unrelated-histories && git push -u origin master; }; f"
+    # find the top level of a Git project, no matter where in that project you are currently working, and then to change directory to it, change to the master branch, and perform a Git pull
+    top = "!f() { cd `git rev-parse --show-toplevel` && git checkout master && git pull; }; f"
+    # pulls changes from the remote. If I have any local commits, it’ll rebase them to come after the commits I pulled down. The --prune option removes remote-tracking branches that no longer exist on the remote.
+    up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+    untrack = rm --cached --
+    # undo the last commit
+    unstage = reset --soft HEAD^
+    # resets the previous commit, but keeps all the changes from that commit in the working directory
+	uncommit = reset --mixed HEAD~
+    # discard changes to tracked files
+	restore = reset --hard
+    # roll into previous commit
+	revise = commit --amend --no-edit
+    abandon = branch -d
+    # discard changes to a file
+    discard = checkout --
+    pr = "!f(){ URL=$(git config remote.origin.url); open ${URL%.git}/compare/$(git rev-parse --abbrev-ref HEAD); }; f"
+    # completing a PR
+    default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
+    # deletes all branches merged into the specified branch (or the default branch if no branch is specified)
+    bclean = "!f() { DEFAULT=$(git default); git branch --merged ${1-$DEFAULT} | grep -v " ${1-$DEFAULT}$" | xargs git branch -d; }; f"
+    # switches to specified branch (or the dafult branch if no branch is specified), runs git up, then runs bclean.
+    bdone = "!f() { DEFAULT=$(git default); git checkout ${1-$DEFAULT} && git up && git bclean ${1-$DEFAULT}; }; f"
+    # prune stale branches
+    prune-all = !git remote | xargs -n 1 git remote prune
+
+    # merging
+    ours = "!f() { git co --ours $@ && git add $@; }; f"
+    theirs = "!f() { git co --theirs $@ && git add $@; }; f"
+    # show list of files in a conflict state.
+    conflicts = !git diff --name-only --diff-filter=U
+
+    # lists
+    remotes = remote -v
+    stashes = stash list
+	tags = tag -n1 --list
+	staged = ls-tree -r HEAD --name-only
+    who = shortlog -s --
+    # lists all branches including remote branches
+    branches = branch -a
+
+    changes=diff --name-status -r
+    diffstat=diff --stat -r
+    # you've eg. moved around a bunch of lines in data files, and want a diff of what _else_ happened
+    sortdiff = !sh -c 'git diff "$@" | grep "^[+-]" | sort --key=1.2 | uniq -u -s1'
+
+    hist = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    prev = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    # list all new commits after you fetched, with stats, but excluding merges
+    fresh = log ORIG_HEAD.. --stat --no-merges
+    # see what new commits have been created by the last command
+    new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+    # lists the files with the most churn
+    churn = !git --no-pager log --name-only --oneline | grep -v ' ' | sort | uniq -c | sort -nr | head

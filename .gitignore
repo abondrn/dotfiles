@@ -1,25 +1,71 @@
-## Dotfiles
-/*
+# Ignore subdirectories
+**
+
+# Allow dotfiles and directories
+!.**
+!dotconfig
+!dotconfig/**
+!subrepos
+!subrepos/**
 !/.*
 !/Library/Application Support/Code/User/settings.json
 /.emacs.d/*
 !/.emacs.d/init.el
 !/.emacs.d/custom-lib/lisp+.el
 
+
+## Ignore unnecessary files inside allowed directories
+
+# This should go after the allowed directories
+**/*~
+**/*.env*
+**/*.log
+
+
 ## OS X
-.DS_Store
+**/.DS_Store
+
 # Thumbnails
-._*
+**/._*
+
 # Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+**/.Spotlight-V100
+**/.Trashes
+
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# ignore all *.class files in all folders, including build root
+**/*.class
+
+
+# story files
+**/*.Rhistory
+**/*.Rapp.history
+
+# Session Data files
+**/*.RData
+
+
+# temporary files
+**/*.tmp
+
+# Vim swap files
+**/*.swp
+
 
 ## Elisp
 # Compiled
-*.elc
+**/*.elc
+
 # Packaging
-.cask
+**/.cask
+
 # Backup files
-*~
+**/*~
+
 # Undo-tree save-files
-*.~undo-tree
+**/*.~undo-tree
