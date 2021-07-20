@@ -2,6 +2,14 @@
 SHELL = /bin/bash
 OS := $(shell uname)
 
+COMMON = $(PWD)/dotconfig/common.sh
+HOOK = "\nif [ -e $(COMMON) ]; then\n\tsource $(COMMON)\nfi"
+ifeq ($(OS), Darwin)
+	BASHRC = ~/.bash_profile
+else
+	BASHRC = ~/.bashrc
+endif
+
 
 .PHONY: init update install uninstall clean
 
@@ -12,12 +20,8 @@ update:
 	git pull --recurse-submodules
 
 install:
-	git config --global include.path "$PWD/dotconfig/.gitconfig.aliases"
-	ifeq ($(OS), Darwin)
-		echo "source $PWD/dotconfig/common.sh" >> ~/.bash_profile
-	else
-		echo "source $PWD/dotconfig/common.sh" >> ~/.bashrc
-	endif
+	git config --global include.path "$(PWD)/dotconfig/.gitconfig.aliases"
+	shopt -s xpg_echo && echo $(HOOK) >> $(BASHRC)
 
 uninstall:
 	rm -rf .git dotconfig subrepos
@@ -25,7 +29,7 @@ uninstall:
 
 clean:
 	sh subrepos/mac-cleanup/mac-cleanup
-	rm -rf $TMPDIR
+	sudo rm -rf $(TMPDIR)*
 
 
 .PHONY: macos linux

@@ -55,9 +55,9 @@
 
     # file-level workflow
     untrack = rm --cached --
-    # undo the last commit
-    unstage = reset --soft HEAD^
-    # resets the previous commit, but keeps all the changes from that commit in the working directory
+    # restore a file in the index to match the version in HEAD
+    unstage = restore --staged
+    # undo the previous commit, but keep all the changes from that commit in the working directory
 	uncommit = reset --mixed HEAD~
     # revert file to most recent commit
 	wipe = reset --hard
@@ -65,6 +65,8 @@
     discard = checkout --
 
     # workflow
+    # update staged files only
+    readd = update-index --again :/:
     # https://stackoverflow.com/questions/3311774/how-to-convert-existing-non-empty-directory-into-a-git-working-directory-and-pus
     track = "!f() { git init && git remote add origin $1 && git pull origin master --allow-unrelated-histories && git push -u origin master; }; f"
     # find the top level of a Git project, no matter where in that project you are currently working, and then to change directory to it, change to the master branch, and perform a Git pull

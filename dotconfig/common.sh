@@ -1,7 +1,7 @@
 # https://opensource.com/article/19/7/bash-aliases
 
-if [ -e ../subrepos/bash-sensible/sensible.sh ]; then
-    source ../subrepos/bash-sensible/sensible.sh
+if [ -e subrepos/bash-sensible/sensible.bash ]; then
+    source subrepos/bash-sensible/sensible.bash
 fi
 
 
