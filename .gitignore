@@ -1,20 +1,39 @@
 # Ignore subdirectories
-*/**
+*
 
-# Allow files and directories
+# Allow dotfiles and directories
 !.*
 !dotconfig
 !dotconfig/**
 !subrepos
 !subrepos/**
+!/.*
+!/Library/Application Support/Code/User/settings.json
+!/.emacs.d/init.el
+!/.emacs.d/custom-lib/lisp+.el
+!Makefile
 
 
-# Ignore unnecessary files inside allowed directories
+.Trash
+
+
+## Ignore unnecessary files inside allowed directories
+
 # This should go after the allowed directories
 **/*~
 **/*.env*
 **/*.log
-**/*.DS_Store
+
+
+## OS X
+**/.DS_Store
+
+# Thumbnails
+**/._*
+
+# Files that might appear on external disk
+**/.Spotlight-V100
+**/.Trashes
 
 
 # Byte-compiled / optimized / DLL files
@@ -41,7 +60,7 @@
 **/*.swp
 
 
-# emacs
+## Elisp
 # Compiled
 **/*.elc
 
